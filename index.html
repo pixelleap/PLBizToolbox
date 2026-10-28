@@ -119,7 +119,14 @@
           </select>
         </div>
         <div id="active-filters" class="active-filters"></div>
-        <div id="module-grid" class="module-grid"></div>
+        <div class="group-toolbar">
+          <span>分组方式</span>
+          <div class="group-switch" role="group" aria-label="分组方式">
+            <button type="button" data-group="selection" aria-pressed="true">选型状态</button>
+            <button type="button" data-group="family" aria-pressed="false">模组分类</button>
+          </div>
+        </div>
+        <div id="module-grid" class="module-groups"></div>
         <div id="empty-state" class="empty-state" hidden>
           <strong>没有找到匹配的模组</strong>
           <p>试试其他关键词或调整筛选条件。</p>

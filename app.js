@@ -4,6 +4,7 @@ const filters = Object.fromEntries(Object.keys(filterOptions).map(key => [key, n
 let plan = { name: '我的选型方案', selections: {} };
 let activeModule = null;
 let previousFocus = null;
+let groupBy = 'selection';
 const byId = id => document.getElementById(id);
 const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
 const count = () => Object.keys(plan.selections).length;
@@ -53,11 +54,16 @@ function renderGrid() {
   const matches = modules.filter(moduleMatches);
   byId('result-count').textContent = matches.length;
   byId('empty-state').hidden = matches.length > 0;
-  byId('module-grid').innerHTML = matches.map(module => {
+  const families = [...new Set(modules.map(module => module.family))];
+  const groups = groupBy === 'selection'
+    ? [['已选模组', matches.filter(module => Object.hasOwn(plan.selections, module.id))], ['未选模组', matches.filter(module => !Object.hasOwn(plan.selections, module.id))]]
+    : families.map(family => [family, matches.filter(module => module.family === family)]).filter(([, items]) => items.length);
+  const cardHtml = module => {
     const selected = Object.hasOwn(plan.selections, module.id);
-    const familyClass = [...new Set(modules.map(item => item.family))].indexOf(module.family) % 5;
+    const familyClass = families.indexOf(module.family) % 5;
     return `<article class="module-card"><div class="card-top"><span class="module-symbol family-${familyClass}">${['◇','✧','▣','◈','⌘'][familyClass]}</span><button class="select-button ${selected ? 'selected' : ''}" data-toggle="${module.id}" aria-label="${selected ? '移除' : '选择'}${escapeHtml(module.name)}" title="${selected ? '移除模组' : '选择模组'}">${selected ? '✓' : '+'}</button></div><button class="card-detail" data-detail="${module.id}"><span class="family-label">${escapeHtml(module.family)}</span><h3>${escapeHtml(module.name)}</h3><p>${module.variants.slice(0, 4).map(variant => escapeHtml(variant.name)).join(' / ')}</p><div class="card-tags">${module.tags.slice(0, 2).map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div><span class="card-link">查看详情 <span>↗</span></span></button></article>`;
-  }).join('');
+  };
+  byId('module-grid').innerHTML = matches.length ? groups.map(([name, items]) => `<section class="module-group"><h3>${escapeHtml(name)} <span>${items.length}</span></h3>${items.length ? `<div class="module-grid">${items.map(cardHtml).join('')}</div>` : '<p class="group-empty">暂无模组</p>'}</section>`).join('') : '';
 }
 function render() { renderFilters(); renderGrid(); updateCounts(); }
 function clearFilters() {
@@ -175,7 +181,17 @@ updateMobileDimensions();
 render();
 document.addEventListener('click', event => {
   const target = event.target.closest('button'); if (!target) return;
-  if (target.dataset.toggle) toggleModule(target.dataset.toggle);
+  if (target.dataset.group) {
+    groupBy = target.dataset.group;
+    document.querySelectorAll('[data-group]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.group === groupBy)));
+    renderGrid();
+  }
+  else if (target.dataset.toggle) {
+    const id = target.dataset.toggle;
+    const inGrid = Boolean(target.closest('#module-grid'));
+    toggleModule(id);
+    if (inGrid) [...byId('module-grid').querySelectorAll('[data-toggle]')].find(button => button.dataset.toggle === id)?.focus();
+  }
   else if ((target.dataset.featAll || target.dataset.featClear) && activeModule) {
     const module = modules.find(item => item.id === activeModule);
     const name = target.dataset.featAll || target.dataset.featClear;
