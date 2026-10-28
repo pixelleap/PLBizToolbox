@@ -1,44 +1,205 @@
-const rawModules = [
-  ['局内模块','奖励选择','4选1、多选、重抽、追加选择、全部领取','激励广告','失败、关卡'],
-  ['局内模块','结算奖励','基础奖励、倍率加成、追加宝箱、奖励升级','激励广告','关卡'],
-  ['局内模块','失败挽救','复活、加步、加时间、保留进度、检查点','广告、道具消耗','失败'],
-  ['局内模块','辅助与道具','提示、撤销、刷新、排除错误、局内补充','广告、资源消耗','失败、资源'],
-  ['局内模块','临时增益','开局强化、收益加成、限时能力、下局增益','广告、资源消耗','资源、成长'],
-  ['局内模块','局内目标','单局任务、阶段目标、额外奖励、升级奖励','目标驱动','关卡'],
-  ['局内模块','广告展示节点','关卡间、大厅返回、插屏、横幅承载位','广告收入','关卡'],
-  ['活动模块','签到与周期领取','连续签到、累计签到、循环签到、免费宝箱、计时补给','留存、广告','资源'],
-  ['活动模块','任务与成就','每日任务、长期成就、累计目标、里程碑','目标留存','成长'],
-  ['活动模块','挑战活动','挑战关、X日挑战、连胜、限时闯关','留存、广告、付费','关卡'],
-  ['活动模块','收集活动','拼图、集卡、集字、碎片兑换、主题收藏','留存、消耗','内容、资源'],
-  ['活动模块','通行证','免费轨、付费轨、赛季、固定周期、进度','付费、留存','成长'],
-  ['活动模块','排行与竞赛','积分榜、分组竞赛、个人目标、团队目标','竞争留存','成长'],
-  ['活动模块','人群专属活动','新手、回流、会员、分层奖励、专属任务','留存、转化','成长'],
-  ['售卖模块','通用商店','货币、道具、内容货架、直购、兑换、广告领取','售卖容器','资源、内容'],
-  ['售卖模块','礼包','首购、新手、节日礼包、卡关触发、资源不足触发','售卖容器','关卡、资源'],
-  ['售卖模块','限时特惠','特价商店、黑市模板、周期刷新、商品重抽','售卖容器','资源'],
-  ['售卖模块','存钱罐','游玩积累、阈值开启、付费取出、部分领取','售卖机制','资源'],
-  ['售卖模块','会员与订阅','VIP、月卡、内容订阅、每日补给、持续权益','权益商品','内容'],
-  ['售卖模块','去广告与便利','移除指定广告类型、自动领取、便捷功能','权益商品','内容'],
-  ['售卖模块','抽奖与随机商品','免费、广告、货币抽取、概率、保底、重复处理','需合规审查','资源'],
-  ['养成内容','体力与次数','体力、门票、挑战次数、自然恢复、额外补充','资源循环','资源'],
-  ['养成内容','局外成长','属性升级、能力解锁、付费加速、成长基金','成长、消耗','成长、资源'],
-  ['养成内容','内容包解锁','图包、关卡包、主题包、迷你包、整包、试用','广告、货币、付费','内容、关卡'],
-  ['养成内容','角色与外观','角色、皮肤、装扮、外观价值、能力价值','收集、付费','内容、成长'],
-  ['养成内容','相册与收藏','筛选、收藏、完成展示、套系进度、未解锁预览','内容留存','内容'],
-  ['养成内容','内容导出','壁纸下载、作品保存、高清导出、会员权益','内容型适配','内容'],
-  ['养成内容','建造与装饰','家园、房间、地图修复、阶段解锁、装饰收集','成长、消耗','内容、成长'],
-  ['通用底座','奖励与经济','固定奖励、随机奖励、权重奖励、货币、库存、发奖校验','共用能力','资源'],
-  ['通用底座','广告接入与控制','激励广告、插屏、横幅、频控、保护期、兜底','共用能力','待补充'],
-  ['通用底座','支付与权益','商品目录、订单校验、恢复购买、订阅状态','共用能力','待补充'],
-  ['通用底座','活动与条件引擎','时间、进度、人群条件、任务计数、周期重置','共用能力','成长'],
-  ['通用底座','远程配置与实验','模块开关、参数、分群、A/B测试、灰度发布','共用能力','待补充'],
-  ['通用底座','数据与经验沉淀','曝光、转化、收益、留存、实验结论、项目适配记录','共用能力','待补充'],
-  ['通用底座','本地化与合规','语言、币种、时区、隐私、年龄、市场规则','共用能力','待补充']
-];
-const modules = rawModules.map(([family, name, variants, tags, conditions], index) => ({
-  id: `module-${String(index + 1).padStart(2, '0')}`, family, name,
-  variants: variants.split('、'), tags: tags.split('、'), conditions: conditions.split('、'),
-  goals: ['广告', '付费', '留存', '消耗'].filter(goal => tags.includes(goal)),
-  costs: ['待补充']
-}));
-const filterOptions = { condition: ['失败', '关卡', '资源', '内容', '成长', '待补充'], goal: ['广告', '付费', '留存', '消耗', '待补充'], cost: ['开发', '内容', '运营', '待补充'] };
+/*
+ * Runtime data loader for data.yaml.
+ * The parser intentionally supports the small YAML subset used by this
+ * project: indented mappings, lists, quoted strings, and scalar values.
+ */
+(function loadToolboxData() {
+  const scriptUrl = document.currentScript?.src || document.baseURI;
+  function stripComment(value) {
+    let quote = null;
+    for (let index = 0; index < value.length; index += 1) {
+      const character = value[index];
+      if ((character === '"' || character === "'") && value[index - 1] !== '\\') {
+        quote = quote === character ? null : quote || character;
+      } else if (character === '#' && !quote && (index === 0 || /\s/.test(value[index - 1]))) {
+        return value.slice(0, index).trimEnd();
+      }
+    }
+    return value.trimEnd();
+  }
+
+  function splitPair(value) {
+    let quote = null;
+    for (let index = 0; index < value.length; index += 1) {
+      const character = value[index];
+      if ((character === '"' || character === "'") && value[index - 1] !== '\\') {
+        quote = quote === character ? null : quote || character;
+      } else if (character === ':' && !quote) {
+        const key = value.slice(0, index).trim();
+        if (!key) throw new Error('YAML 配置包含空字段名');
+        return { key, value: value.slice(index + 1).trim() };
+      }
+    }
+    return null;
+  }
+
+  function splitInlineList(value) {
+    const result = [];
+    let quote = null;
+    let start = 1;
+    for (let index = 1; index < value.length - 1; index += 1) {
+      const character = value[index];
+      if ((character === '"' || character === "'") && value[index - 1] !== '\\') {
+        quote = quote === character ? null : quote || character;
+      } else if (character === ',' && !quote) {
+        result.push(value.slice(start, index).trim());
+        start = index + 1;
+      }
+    }
+    if (value.slice(start, -1).trim()) result.push(value.slice(start, -1).trim());
+    return result.map(parseScalar);
+  }
+
+  function parseScalar(value) {
+    if (!value) return '';
+    if (value.startsWith('[') && value.endsWith(']')) return splitInlineList(value);
+    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+      return value[0] === '"'
+        ? JSON.parse(value)
+        : value.slice(1, -1).replace(/''/g, "'");
+    }
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+    if (value === 'null') return null;
+    if (/^-?(?:\d+\.?\d*|\.\d+)$/.test(value)) return Number(value);
+    return value;
+  }
+
+  function parseYaml(source) {
+    const lines = source.split(/\r?\n/).flatMap((line, lineNumber) => {
+      const withoutComment = stripComment(line);
+      if (!withoutComment.trim()) return [];
+      if (/\t/.test(withoutComment)) throw new Error(`YAML 第 ${lineNumber + 1} 行不能使用 Tab 缩进`);
+      const indent = withoutComment.search(/\S/);
+      return [{ indent, content: withoutComment.trim() }];
+    });
+    const cursor = { index: 0 };
+
+    function parseBlock(indent) {
+      if (cursor.index >= lines.length || lines[cursor.index].indent < indent) return {};
+      if (lines[cursor.index].indent !== indent) throw new Error('YAML 缩进层级不连续');
+      return lines[cursor.index].content.startsWith('-') ? parseList(indent) : parseMap(indent);
+    }
+
+    function parseMap(indent) {
+      const result = {};
+      while (cursor.index < lines.length && lines[cursor.index].indent === indent) {
+        const line = lines[cursor.index];
+        if (line.content.startsWith('-')) break;
+        const pair = splitPair(line.content);
+        if (!pair) throw new Error(`YAML 字段格式不正确：${line.content}`);
+        cursor.index += 1;
+        if (pair.value) {
+          result[pair.key] = parseScalar(pair.value);
+        } else if (cursor.index < lines.length && lines[cursor.index].indent > indent) {
+          result[pair.key] = parseBlock(lines[cursor.index].indent);
+        } else {
+          result[pair.key] = {};
+        }
+      }
+      return result;
+    }
+
+    function parseList(indent) {
+      const result = [];
+      while (cursor.index < lines.length && lines[cursor.index].indent === indent) {
+        const line = lines[cursor.index];
+        if (!line.content.startsWith('-')) break;
+        const rest = line.content.slice(1).trim();
+        cursor.index += 1;
+        if (!rest) {
+          result.push(cursor.index < lines.length && lines[cursor.index].indent > indent ? parseBlock(lines[cursor.index].indent) : null);
+          continue;
+        }
+        const pair = splitPair(rest);
+        if (!pair) {
+          result.push(parseScalar(rest));
+          continue;
+        }
+        const item = {};
+        item[pair.key] = pair.value ? parseScalar(pair.value) : (cursor.index < lines.length && lines[cursor.index].indent > indent ? parseBlock(lines[cursor.index].indent) : {});
+        if (cursor.index < lines.length && lines[cursor.index].indent > indent) {
+          const continuation = parseBlock(lines[cursor.index].indent);
+          if (!continuation || Array.isArray(continuation) || typeof continuation !== 'object') throw new Error('YAML 列表项格式不正确');
+          Object.assign(item, continuation);
+        }
+        result.push(item);
+      }
+      return result;
+    }
+
+    if (!lines.length) return {};
+    const result = parseBlock(lines[0].indent);
+    if (cursor.index !== lines.length) throw new Error('YAML 配置存在无法解析的内容');
+    return result;
+  }
+
+  function stringList(value, field, index) {
+    if (!Array.isArray(value) || !value.every(item => typeof item === 'string')) {
+      throw new Error(`模组 ${index + 1} 的 ${field} 必须是字符串列表`);
+    }
+    return value;
+  }
+
+  function variantList(value, index) {
+    if (!Array.isArray(value) || !value.every(variant => variant && typeof variant === 'object' && !Array.isArray(variant) && typeof variant.name === 'string')) {
+      throw new Error(`模组 ${index + 1} 的 variants 必须是对象列表`);
+    }
+    return value.map((variant, variantIndex) => ({
+      name: variant.name,
+      feats: stringList(variant.feats, `variants[${variantIndex}].feats`, index)
+    }));
+  }
+
+  function normalizeConfig(config) {
+    if (!config || config.version !== 2 || !Array.isArray(config.modules) || !config.filters) {
+      throw new Error('YAML 配置缺少必要字段或版本不正确');
+    }
+    const filterOptions = {};
+    const filterLabels = {};
+    Object.entries(config.filters).forEach(([key, filter]) => {
+      if (!filter || typeof filter.label !== 'string') throw new Error(`筛选项 ${key} 缺少 label`);
+      filterLabels[key] = filter.label;
+      filterOptions[key] = stringList(filter.options, `${key}.options`, 0);
+    });
+    const modules = config.modules.map((module, index) => {
+      if (!module || typeof module.id !== 'string' || typeof module.family !== 'string' || typeof module.name !== 'string') {
+        throw new Error(`模组 ${index + 1} 缺少 id、family 或 name`);
+      }
+      const tags = stringList(module.tags, 'tags', index);
+      return {
+        id: module.id,
+        family: module.family,
+        name: module.name,
+        variants: variantList(module.variants, index),
+        tags,
+        conditions: stringList(module.conditions, 'conditions', index),
+        goals: ['广告', '付费', '留存', '消耗'].filter(goal => tags.includes(goal)),
+        costs: ['待补充']
+      };
+    });
+    if (new Set(modules.map(module => module.id)).size !== modules.length) throw new Error('模组 id 不能重复');
+    return { modules, filterOptions, filterLabels };
+  }
+
+  async function readConfig() {
+    const url = new URL('data.yaml', scriptUrl).href;
+    try {
+      const response = await fetch(url, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`无法读取 data.yaml（${response.status}）`);
+      return response.text();
+    } catch (fetchError) {
+      return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
+        request.open('GET', url);
+        request.onload = () => request.status === 0 || (request.status >= 200 && request.status < 300)
+          ? resolve(request.responseText)
+          : reject(fetchError);
+        request.onerror = () => reject(fetchError);
+        request.send();
+      });
+    }
+  }
+
+  window.toolboxDataReady = readConfig().then(source => normalizeConfig(parseYaml(source)));
+}());

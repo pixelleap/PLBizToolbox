@@ -1,41 +1,147 @@
 <!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>出海游戏 · 商业化模块工具箱</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="data.js" defer></script>
-  <script src="app.js" defer></script>
-</head>
-<body>
-  <header class="topbar">
-    <div class="brand"><span class="brand-mark">P<span>+</span></span><div><strong>商业化模块工具箱</strong><small>GAME MONETIZATION TOOLKIT</small></div></div>
-    <span class="top-label"><span class="status-dot"></span> 内部工作台 <b>1.0</b></span>
-  </header>
-  <main class="workspace">
-    <aside class="sidebar">
-      <div class="side-heading">工作空间 <span>WORKSPACE</span></div>
-      <button class="nav-item active" id="library-nav"><span class="nav-icon">▦</span> 模块库 <span class="nav-count">35</span></button>
-      <button class="nav-item" id="plan-nav"><span class="nav-icon">▤</span> 我的选型 <span class="nav-count" id="side-count">0</span></button>
-      <div class="side-divider"></div>
-      <div class="side-heading">选型筛选 <button class="text-button" id="reset-filters">重置</button></div>
-      <div id="filters"></div>
-      <div class="sidebar-note"><span>✦</span><div><strong>从需求出发</strong><p>选择适合项目的模块与变体，组合属于你的商业化方案。</p></div></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>出海游戏 · 商业化模组工具箱</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="data.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">P<span>+</span></span>
+        <div>
+          <strong>商业化模组工具箱</strong
+          ><small>GAME MONETIZATION TOOLKIT</small>
+        </div>
+      </div>
+      <span class="top-label"
+        ><span class="status-dot"></span> 内部工作台 <b>1.0</b></span
+      >
+    </header>
+    <main class="workspace">
+      <aside class="sidebar">
+        <div class="side-heading">工作空间 <span>WORKSPACE</span></div>
+        <button class="nav-item active" id="library-nav">
+          <span class="nav-icon">▦</span> 模组库
+          <span class="nav-count" id="library-count">0</span>
+        </button>
+        <button class="nav-item" id="plan-nav">
+          <span class="nav-icon">▤</span> 我的选型
+          <span class="nav-count" id="side-count">0</span>
+        </button>
+        <div class="side-divider"></div>
+        <div class="side-heading">
+          选型筛选 <button class="text-button" id="reset-filters">重置</button>
+        </div>
+        <div id="filters"></div>
+        <div class="sidebar-note">
+          <span>✦</span>
+          <div>
+            <strong>从需求出发</strong>
+            <p>选择适合项目的模组与变体，组合属于你的商业化方案。</p>
+          </div>
+        </div>
+      </aside>
+      <section class="content">
+        <div class="page-top">
+          <div>
+            <div class="breadcrumb">工作空间 <span>/</span> 模组库</div>
+            <h1>商业化模组库 <span>TOOLKIT</span></h1>
+            <p>为你的游戏找到合适的产品化与商业化能力。</p>
+          </div>
+          <div class="page-actions">
+            <button class="button secondary" id="import-button">
+              ↑ <span>导入方案</span></button
+            ><button class="button primary" id="open-plan">
+              ▤ <span>我的选型</span><b id="header-count">0</b></button
+            ><input
+              type="file"
+              id="import-file"
+              accept="application/json,.json"
+              hidden
+            />
+          </div>
+        </div>
+        <div class="overview">
+          <div>
+            <span class="overview-icon blue">▦</span>
+            <div>
+              <small>模组总数</small
+              ><strong id="overview-total">0 <em>个模组族</em></strong>
+            </div>
+          </div>
+          <div>
+            <span class="overview-icon green">✧</span>
+            <div>
+              <small>覆盖能力</small
+              ><strong id="overview-families">0 <em>大能力领域</em></strong>
+            </div>
+          </div>
+          <div>
+            <span class="overview-icon violet">◈</span>
+            <div>
+              <small>当前方案</small
+              ><strong id="overview-count">0 <em>个已选模组</em></strong>
+            </div>
+          </div>
+          <div class="overview-tip">
+            <span>✦</span>
+            <p>
+              <strong>模组库 ≠ 单款游戏功能清单</strong
+              ><br />按项目需求灵活组合，而非全部集成。
+            </p>
+          </div>
+        </div>
+        <div class="catalog-heading">
+          <div>
+            <h2>探索模组 <span id="result-count">0</span></h2>
+            <p>玩法条件为初步归纳，需结合项目确认；成本信息待补充。</p>
+          </div>
+          <div class="search-wrap">
+            <span>⌕</span
+            ><input
+              type="search"
+              id="search"
+              placeholder="搜索模组、变体或关键词"
+              aria-label="搜索模组、变体或关键词"
+            /><kbd>⌘ K</kbd>
+          </div>
+        </div>
+        <div class="mobile-filter">
+          <label for="mobile-dimension">筛选维度</label
+          ><select id="mobile-dimension">
+            <option value="">全部模组</option></select
+          ><select id="mobile-value" aria-label="筛选条件">
+            <option value="">全部</option>
+          </select>
+        </div>
+        <div id="active-filters" class="active-filters"></div>
+        <div id="module-grid" class="module-grid"></div>
+        <div id="empty-state" class="empty-state" hidden>
+          <strong>没有找到匹配的模组</strong>
+          <p>试试其他关键词或调整筛选条件。</p>
+          <button class="button secondary" id="empty-reset">清除筛选</button>
+        </div>
+        <footer>
+          PIXELLEAP <span>·</span> 商业化模组工具箱
+          <span class="footer-right">为每一个好游戏，找到合适的增长方式。</span>
+        </footer>
+      </section>
+    </main>
+    <div class="overlay" id="overlay" hidden></div>
+    <aside
+      class="drawer"
+      id="drawer"
+      aria-label="详情面板"
+      aria-modal="true"
+      role="dialog"
+      hidden
+    >
+      <div id="drawer-content"></div>
     </aside>
-    <section class="content">
-      <div class="page-top"><div><div class="breadcrumb">工作空间 <span>/</span> 模块库</div><h1>商业化模块库 <span>TOOLKIT</span></h1><p>为你的游戏找到合适的产品化与商业化能力。</p></div><div class="page-actions"><button class="button secondary" id="import-button">↑ <span>导入方案</span></button><button class="button primary" id="open-plan">▤ <span>我的选型</span><b id="header-count">0</b></button><input type="file" id="import-file" accept="application/json,.json" hidden></div></div>
-      <div class="overview"><div><span class="overview-icon blue">▦</span><div><small>模块总数</small><strong>35 <em>个模块族</em></strong></div></div><div><span class="overview-icon green">✧</span><div><small>覆盖能力</small><strong>5 <em>大能力领域</em></strong></div></div><div><span class="overview-icon violet">◈</span><div><small>当前方案</small><strong id="overview-count">0 <em>个已选模块</em></strong></div></div><div class="overview-tip"><span>✦</span><p><strong>模块库 ≠ 单款游戏功能清单</strong><br>按项目需求灵活组合，而非全部集成。</p></div></div>
-      <div class="catalog-heading"><div><h2>探索模块 <span id="result-count">35</span></h2><p>玩法条件为初步归纳，需结合项目确认；成本信息待补充。</p></div><div class="search-wrap"><span>⌕</span><input type="search" id="search" placeholder="搜索模块、变体或关键词" aria-label="搜索模块、变体或关键词"><kbd>⌘ K</kbd></div></div>
-      <div class="mobile-filter"><label for="mobile-dimension">筛选维度</label><select id="mobile-dimension"><option value="">全部模块</option><option value="condition">玩法条件</option><option value="goal">目标</option><option value="cost">成本</option></select><select id="mobile-value" aria-label="筛选条件"><option value="">全部</option></select></div>
-      <div id="active-filters" class="active-filters"></div>
-      <div id="module-grid" class="module-grid"></div>
-      <div id="empty-state" class="empty-state" hidden><strong>没有找到匹配的模块</strong><p>试试其他关键词或调整筛选条件。</p><button class="button secondary" id="empty-reset">清除筛选</button></div>
-      <footer>PIXELLEAP <span>·</span> 商业化模块工具箱 <span class="footer-right">为每一个好游戏，找到合适的增长方式。</span></footer>
-    </section>
-  </main>
-  <div class="overlay" id="overlay" hidden></div>
-  <aside class="drawer" id="drawer" aria-label="详情面板" aria-modal="true" role="dialog" hidden><div id="drawer-content"></div></aside>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-</body>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
 </html>

@@ -1,0 +1,678 @@
+# 商业化模组库配置。每个模组包含所属模组族、名称、可选变体、标签和适配条件。
+# variants 下每项包含 name 和 feats；feat 是该变体下可多选的功能子项。
+# 使用两个空格缩进；新增模组时复制一个 modules 下的条目并保持唯一 id。
+version: 2
+filters:
+  condition:
+    label: 玩法条件
+    options:
+      - 失败
+      - 通关
+      - 关卡
+      - 资源
+      - 内容
+      - 成长
+      - 待补充
+  goal:
+    label: 目标
+    options:
+      - 广告
+      - 付费
+      - 留存
+      - 消耗
+      - 待补充
+  cost:
+    label: 成本
+    options:
+      - 开发
+      - 内容
+      - 运营
+      - 待补充
+modules:
+  - id: module-01
+    family: GamePlay
+    name: 壁纸奖励
+    variants:
+      - name: 开局4选1
+        feats:
+          - 奖励*4 随机抽
+          - AD专属位
+          - VIP专属位
+          - 看广告重抽
+      - name: 其他模式
+        feats:
+          - 奖励*1 随机抽
+          - 阶段奖励*3 预配固定
+          - 「宝箱奖励」*参考结算奖励
+    tags:
+      - 激励广告
+    conditions:
+      - 通关
+      - 关卡
+  - id: module-02
+    family: GamePlay
+    name: 结算奖励
+    variants:
+      - name: 直接奖励
+        feats:
+          - 金币、道具、资源
+          - 看广告双倍
+          - 看广告*N倍小游戏
+      - name: 宝箱奖励
+        feats:
+          - 随机出奖励，默认最多可选1项
+          - VIP专属（增加可选项）
+          - 付费增加可选项
+          - 广告增加可选项
+          - 局内可升级宝箱
+          - 广告领取全部
+          - 广告领取双倍
+    tags:
+      - 激励广告
+    conditions:
+      - 关卡
+  - id: module-03
+    family: GamePlay
+    name: 失败挽救
+    variants:
+      - name: 复活
+        feats: []
+      - name: 加步
+        feats: []
+      - name: 加时间
+        feats: []
+      - name: 保留进度
+        feats: []
+      - name: 检查点
+        feats: []
+    tags:
+      - 广告
+      - 道具消耗
+    conditions:
+      - 失败
+  - id: module-04
+    family: GamePlay
+    name: 辅助与道具
+    variants:
+      - name: 提示
+        feats: []
+      - name: 撤销
+        feats: []
+      - name: 刷新
+        feats: []
+      - name: 排除错误
+        feats: []
+      - name: 局内补充
+        feats: []
+    tags:
+      - 广告
+      - 资源消耗
+    conditions:
+      - 失败
+      - 资源
+  - id: module-05
+    family: GamePlay
+    name: 临时增益
+    variants:
+      - name: 开局强化
+        feats: []
+      - name: 收益加成
+        feats: []
+      - name: 限时能力
+        feats: []
+      - name: 下局增益
+        feats: []
+    tags:
+      - 广告
+      - 资源消耗
+    conditions:
+      - 资源
+      - 成长
+  - id: module-06
+    family: GamePlay
+    name: 局内目标
+    variants:
+      - name: 单局任务
+        feats: []
+      - name: 阶段目标
+        feats: []
+      - name: 额外奖励
+        feats: []
+      - name: 升级奖励
+        feats: []
+    tags:
+      - 目标驱动
+    conditions:
+      - 关卡
+  - id: module-07
+    family: GamePlay
+    name: 广告展示节点
+    variants:
+      - name: 关卡间
+        feats: []
+      - name: 大厅返回
+        feats: []
+      - name: 插屏
+        feats: []
+      - name: 横幅承载位
+        feats: []
+    tags:
+      - 广告收入
+    conditions:
+      - 关卡
+  - id: module-08
+    family: 活动模组
+    name: 签到与周期领取
+    variants:
+      - name: 连续签到
+        feats: []
+      - name: 累计签到
+        feats: []
+      - name: 循环签到
+        feats: []
+      - name: 免费宝箱
+        feats: []
+      - name: 计时补给
+        feats: []
+    tags:
+      - 留存
+      - 广告
+    conditions:
+      - 资源
+  - id: module-09
+    family: 活动模组
+    name: 任务与成就
+    variants:
+      - name: 每日任务
+        feats: []
+      - name: 长期成就
+        feats: []
+      - name: 累计目标
+        feats: []
+      - name: 里程碑
+        feats: []
+    tags:
+      - 目标留存
+    conditions:
+      - 成长
+  - id: module-10
+    family: 活动模组
+    name: 挑战活动
+    variants:
+      - name: 挑战关
+        feats: []
+      - name: X日挑战
+        feats: []
+      - name: 连胜
+        feats: []
+      - name: 限时闯关
+        feats: []
+    tags:
+      - 留存
+      - 广告
+      - 付费
+    conditions:
+      - 关卡
+  - id: module-11
+    family: 活动模组
+    name: 收集活动
+    variants:
+      - name: 拼图
+        feats: []
+      - name: 集卡
+        feats: []
+      - name: 集字
+        feats: []
+      - name: 碎片兑换
+        feats: []
+      - name: 主题收藏
+        feats: []
+    tags:
+      - 留存
+      - 消耗
+    conditions:
+      - 内容
+      - 资源
+  - id: module-12
+    family: 活动模组
+    name: 通行证
+    variants:
+      - name: 免费轨
+        feats: []
+      - name: 付费轨
+        feats: []
+      - name: 赛季
+        feats: []
+      - name: 固定周期
+        feats: []
+      - name: 进度
+        feats: []
+    tags:
+      - 付费
+      - 留存
+    conditions:
+      - 成长
+  - id: module-13
+    family: 活动模组
+    name: 排行与竞赛
+    variants:
+      - name: 积分榜
+        feats: []
+      - name: 分组竞赛
+        feats: []
+      - name: 个人目标
+        feats: []
+      - name: 团队目标
+        feats: []
+    tags:
+      - 竞争留存
+    conditions:
+      - 成长
+  - id: module-14
+    family: 活动模组
+    name: 人群专属活动
+    variants:
+      - name: 新手
+        feats: []
+      - name: 回流
+        feats: []
+      - name: 会员
+        feats: []
+      - name: 分层奖励
+        feats: []
+      - name: 专属任务
+        feats: []
+    tags:
+      - 留存
+      - 转化
+    conditions:
+      - 成长
+  - id: module-15
+    family: 售卖模组
+    name: 通用商店
+    variants:
+      - name: 货币
+        feats: []
+      - name: 道具
+        feats: []
+      - name: 内容货架
+        feats: []
+      - name: 直购
+        feats: []
+      - name: 兑换
+        feats: []
+      - name: 广告领取
+        feats: []
+    tags:
+      - 售卖容器
+    conditions:
+      - 资源
+      - 内容
+  - id: module-16
+    family: 售卖模组
+    name: 礼包
+    variants:
+      - name: 首购
+        feats: []
+      - name: 新手
+        feats: []
+      - name: 节日礼包
+        feats: []
+      - name: 卡关触发
+        feats: []
+      - name: 资源不足触发
+        feats: []
+    tags:
+      - 售卖容器
+    conditions:
+      - 关卡
+      - 资源
+  - id: module-17
+    family: 售卖模组
+    name: 限时特惠
+    variants:
+      - name: 特价商店
+        feats: []
+      - name: 黑市模板
+        feats: []
+      - name: 周期刷新
+        feats: []
+      - name: 商品重抽
+        feats: []
+    tags:
+      - 售卖容器
+    conditions:
+      - 资源
+  - id: module-18
+    family: 售卖模组
+    name: 存钱罐
+    variants:
+      - name: 游玩积累
+        feats: []
+      - name: 阈值开启
+        feats: []
+      - name: 付费取出
+        feats: []
+      - name: 部分领取
+        feats: []
+    tags:
+      - 售卖机制
+    conditions:
+      - 资源
+  - id: module-19
+    family: 售卖模组
+    name: 会员与订阅
+    variants:
+      - name: VIP
+        feats: []
+      - name: 月卡
+        feats: []
+      - name: 内容订阅
+        feats: []
+      - name: 每日补给
+        feats: []
+      - name: 持续权益
+        feats: []
+    tags:
+      - 权益商品
+    conditions:
+      - 内容
+  - id: module-20
+    family: 售卖模组
+    name: 去广告与便利
+    variants:
+      - name: 移除指定广告类型
+        feats: []
+      - name: 自动领取
+        feats: []
+      - name: 便捷功能
+        feats: []
+    tags:
+      - 权益商品
+    conditions:
+      - 内容
+  - id: module-21
+    family: 售卖模组
+    name: 抽奖与随机商品
+    variants:
+      - name: 免费
+        feats: []
+      - name: 广告
+        feats: []
+      - name: 货币抽取
+        feats: []
+      - name: 概率
+        feats: []
+      - name: 保底
+        feats: []
+      - name: 重复处理
+        feats: []
+    tags:
+      - 需合规审查
+    conditions:
+      - 资源
+  - id: module-22
+    family: 养成内容
+    name: 体力与次数
+    variants:
+      - name: 体力
+        feats: []
+      - name: 门票
+        feats: []
+      - name: 挑战次数
+        feats: []
+      - name: 自然恢复
+        feats: []
+      - name: 额外补充
+        feats: []
+    tags:
+      - 资源循环
+    conditions:
+      - 资源
+  - id: module-23
+    family: 养成内容
+    name: 局外成长
+    variants:
+      - name: 属性升级
+        feats: []
+      - name: 能力解锁
+        feats: []
+      - name: 付费加速
+        feats: []
+      - name: 成长基金
+        feats: []
+    tags:
+      - 成长
+      - 消耗
+    conditions:
+      - 成长
+      - 资源
+  - id: module-24
+    family: 养成内容
+    name: 内容包解锁
+    variants:
+      - name: 图包
+        feats: []
+      - name: 关卡包
+        feats: []
+      - name: 主题包
+        feats: []
+      - name: 迷你包
+        feats: []
+      - name: 整包
+        feats: []
+      - name: 试用
+        feats: []
+    tags:
+      - 广告
+      - 货币
+      - 付费
+    conditions:
+      - 内容
+      - 关卡
+  - id: module-25
+    family: 养成内容
+    name: 角色与外观
+    variants:
+      - name: 角色
+        feats: []
+      - name: 皮肤
+        feats: []
+      - name: 装扮
+        feats: []
+      - name: 外观价值
+        feats: []
+      - name: 能力价值
+        feats: []
+    tags:
+      - 收集
+      - 付费
+    conditions:
+      - 内容
+      - 成长
+  - id: module-26
+    family: 养成内容
+    name: 相册与收藏
+    variants:
+      - name: 筛选
+        feats: []
+      - name: 收藏
+        feats: []
+      - name: 完成展示
+        feats: []
+      - name: 套系进度
+        feats: []
+      - name: 未解锁预览
+        feats: []
+    tags:
+      - 内容留存
+    conditions:
+      - 内容
+  - id: module-27
+    family: 养成内容
+    name: 内容导出
+    variants:
+      - name: 壁纸下载
+        feats: []
+      - name: 作品保存
+        feats: []
+      - name: 高清导出
+        feats: []
+      - name: 会员权益
+        feats: []
+    tags:
+      - 内容型适配
+    conditions:
+      - 内容
+  - id: module-28
+    family: 养成内容
+    name: 建造与装饰
+    variants:
+      - name: 家园
+        feats: []
+      - name: 房间
+        feats: []
+      - name: 地图修复
+        feats: []
+      - name: 阶段解锁
+        feats: []
+      - name: 装饰收集
+        feats: []
+    tags:
+      - 成长
+      - 消耗
+    conditions:
+      - 内容
+      - 成长
+  - id: module-29
+    family: 通用底座
+    name: 奖励与经济
+    variants:
+      - name: 固定奖励
+        feats: []
+      - name: 随机奖励
+        feats: []
+      - name: 权重奖励
+        feats: []
+      - name: 货币
+        feats: []
+      - name: 库存
+        feats: []
+      - name: 发奖校验
+        feats: []
+    tags:
+      - 共用能力
+    conditions:
+      - 资源
+  - id: module-30
+    family: 通用底座
+    name: 广告接入与控制
+    variants:
+      - name: 激励广告
+        feats: []
+      - name: 插屏
+        feats: []
+      - name: 横幅
+        feats: []
+      - name: 频控
+        feats: []
+      - name: 保护期
+        feats: []
+      - name: 兜底
+        feats: []
+    tags:
+      - 共用能力
+    conditions:
+      - 待补充
+  - id: module-31
+    family: 通用底座
+    name: 支付与权益
+    variants:
+      - name: 商品目录
+        feats: []
+      - name: 订单校验
+        feats: []
+      - name: 恢复购买
+        feats: []
+      - name: 订阅状态
+        feats: []
+    tags:
+      - 共用能力
+    conditions:
+      - 待补充
+  - id: module-32
+    family: 通用底座
+    name: 活动与条件引擎
+    variants:
+      - name: 时间
+        feats: []
+      - name: 进度
+        feats: []
+      - name: 人群条件
+        feats: []
+      - name: 任务计数
+        feats: []
+      - name: 周期重置
+        feats: []
+    tags:
+      - 共用能力
+    conditions:
+      - 成长
+  - id: module-33
+    family: 通用底座
+    name: 远程配置与实验
+    variants:
+      - name: 模组开关
+        feats: []
+      - name: 参数
+        feats: []
+      - name: 分群
+        feats: []
+      - name: A/B测试
+        feats: []
+      - name: 灰度发布
+        feats: []
+    tags:
+      - 共用能力
+    conditions:
+      - 待补充
+  - id: module-34
+    family: 通用底座
+    name: 数据与经验沉淀
+    variants:
+      - name: 曝光
+        feats: []
+      - name: 转化
+        feats: []
+      - name: 收益
+        feats: []
+      - name: 留存
+        feats: []
+      - name: 实验结论
+        feats: []
+      - name: 项目适配记录
+        feats: []
+    tags:
+      - 共用能力
+    conditions:
+      - 待补充
+  - id: module-35
+    family: 通用底座
+    name: 本地化与合规
+    variants:
+      - name: 语言
+        feats: []
+      - name: 币种
+        feats: []
+      - name: 时区
+        feats: []
+      - name: 隐私
+        feats: []
+      - name: 年龄
+        feats: []
+      - name: 市场规则
+        feats: []
+    tags:
+      - 共用能力
+    conditions:
+      - 待补充
