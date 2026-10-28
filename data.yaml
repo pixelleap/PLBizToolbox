@@ -35,15 +35,15 @@ modules:
     variants:
       - name: 开局4选1
         feats:
-          - 奖励*4 随机抽
-          - AD专属位
-          - VIP专属位
+          - 随机展示4个奖励，选择1个
+          - 广告专属奖励位
+          - 会员专属奖励位
           - 看广告重抽
       - name: 其他模式
         feats:
-          - 奖励*1 随机抽
-          - 阶段奖励*3 预配固定
-          - 「宝箱奖励」*参考结算奖励
+          - 随机获得1个奖励
+          - 预设3个阶段奖励
+          - 使用结算宝箱奖励
     tags:
       - 激励广告
     conditions:
@@ -57,7 +57,7 @@ modules:
         feats:
           - 金币、道具、资源
           - 看广告双倍
-          - 看广告*N倍小游戏
+          - 看广告参与倍率小游戏
       - name: 宝箱奖励
         feats:
           - 随机出奖励，默认最多可选1项
@@ -76,15 +76,30 @@ modules:
     name: 失败挽救
     variants:
       - name: 复活
-        feats: []
+        feats:
+          - 广告复活
+          - 货币或道具复活
+          - 单局复活次数限制
       - name: 加步
-        feats: []
+        feats:
+          - 广告加步
+          - 货币购买步数
+          - 按失败阶段配置步数
       - name: 加时间
-        feats: []
+        feats:
+          - 广告延长时间
+          - 货币购买时间
+          - 单局延时次数限制
       - name: 保留进度
-        feats: []
+        feats:
+          - 广告保留本局奖励
+          - 付费保留进度
+          - 失败后继续入口
       - name: 检查点
-        feats: []
+        feats:
+          - 检查点进度保存
+          - 广告从检查点继续
+          - 检查点重置规则
     tags:
       - 广告
       - 道具消耗
@@ -95,15 +110,30 @@ modules:
     name: 辅助与道具
     variants:
       - name: 提示
-        feats: []
+        feats:
+          - 免费提示次数
+          - 广告获取提示
+          - 消耗道具或货币获得提示
       - name: 撤销
-        feats: []
+        feats:
+          - 撤销上一步
+          - 广告补充撤销次数
+          - 限制连续撤销
       - name: 刷新
-        feats: []
+        feats:
+          - 刷新局面
+          - 广告获得刷新
+          - 确保刷新后的局面可继续游玩
       - name: 排除错误
-        feats: []
+        feats:
+          - 标记错误项
+          - 广告排除错误
+          - 按关卡限制使用
       - name: 局内补充
-        feats: []
+        feats:
+          - 局内购买道具
+          - 广告补充道具
+          - 库存不足时快捷获取
     tags:
       - 广告
       - 资源消耗
@@ -115,13 +145,25 @@ modules:
     name: 临时增益
     variants:
       - name: 开局强化
-        feats: []
+        feats:
+          - 开局选择增益
+          - 广告解锁增益
+          - 消耗道具启用增益
       - name: 收益加成
-        feats: []
+        feats:
+          - 限时收益倍率
+          - 广告激活加成
+          - 倍率与持续时间配置
       - name: 限时能力
-        feats: []
+        feats:
+          - 限时技能试用
+          - 广告延长持续时间
+          - 效果到期提示
       - name: 下局增益
-        feats: []
+        feats:
+          - 结算获得下局增益
+          - 广告升级增益
+          - 下一局自动生效
     tags:
       - 广告
       - 资源消耗
@@ -133,13 +175,25 @@ modules:
     name: 局内目标
     variants:
       - name: 单局任务
-        feats: []
+        feats:
+          - 局内任务生成
+          - 任务进度展示
+          - 完成即时领奖
       - name: 阶段目标
-        feats: []
+        feats:
+          - 阶段目标配置
+          - 阶段进度提示
+          - 分阶段发奖
       - name: 额外奖励
-        feats: []
+        feats:
+          - 可选额外目标
+          - 广告领取额外奖励
+          - 奖励预览
       - name: 升级奖励
-        feats: []
+        feats:
+          - 通过局内表现提升奖励等级
+          - 奖励等级展示
+          - 结算按等级发奖
     tags:
       - 目标驱动
     conditions:
@@ -149,13 +203,25 @@ modules:
     name: 广告展示节点
     variants:
       - name: 关卡间
-        feats: []
+        feats:
+          - 关卡完成后展示
+          - 按关卡进度解锁
+          - 展示间隔控制
       - name: 大厅返回
-        feats: []
+        feats:
+          - 返回大厅时展示
+          - 单次返回只触发一次
+          - 避免与其他广告节点连续触发
       - name: 插屏
-        feats: []
+        feats:
+          - 插屏加载与展示
+          - 展示失败跳过
+          - 展示前过渡提示
       - name: 横幅承载位
-        feats: []
+        feats:
+          - 大厅横幅位置配置
+          - 玩法界面隐藏横幅
+          - 适配屏幕安全区域，避免遮挡操作
     tags:
       - 广告收入
     conditions:
@@ -165,15 +231,30 @@ modules:
     name: 签到与周期领取
     variants:
       - name: 连续签到
-        feats: []
+        feats:
+          - 连续天数进度
+          - 断签重置规则
+          - 广告补签
       - name: 累计签到
-        feats: []
+        feats:
+          - 累计签到进度
+          - 里程碑奖励
+          - 漏签不清零
       - name: 循环签到
-        feats: []
+        feats:
+          - 循环周期配置
+          - 周期完成后重置
+          - 周期末奖励
       - name: 免费宝箱
-        feats: []
+        feats:
+          - 免费领取冷却
+          - 广告额外领取
+          - 奖励内容预览
       - name: 计时补给
-        feats: []
+        feats:
+          - 倒计时领取
+          - 离线计时恢复
+          - 广告缩短等待
     tags:
       - 留存
       - 广告
@@ -184,13 +265,25 @@ modules:
     name: 任务与成就
     variants:
       - name: 每日任务
-        feats: []
+        feats:
+          - 每日任务池
+          - 任务进度追踪
+          - 每日重置领奖
       - name: 长期成就
-        feats: []
+        feats:
+          - 成就分级目标
+          - 永久进度保存
+          - 达成奖励领取
       - name: 累计目标
-        feats: []
+        feats:
+          - 跨局累计计数
+          - 目标进度展示
+          - 多档奖励
       - name: 里程碑
-        feats: []
+        feats:
+          - 成长节点配置
+          - 节点达成发奖
+          - 未领取奖励保留
     tags:
       - 目标留存
     conditions:
@@ -200,13 +293,25 @@ modules:
     name: 挑战活动
     variants:
       - name: 挑战关
-        feats: []
+        feats:
+          - 挑战关卡配置
+          - 挑战次数限制
+          - 通关奖励
       - name: X日挑战
-        feats: []
+        feats:
+          - 每日挑战解锁
+          - 连续完成奖励
+          - 错过日期补做规则
       - name: 连胜
-        feats: []
+        feats:
+          - 连胜计数
+          - 失败重置规则
+          - 阶段奖励
       - name: 限时闯关
-        feats: []
+        feats:
+          - 活动倒计时
+          - 限时关卡进度
+          - 结束后领奖期限
     tags:
       - 留存
       - 广告
@@ -218,15 +323,30 @@ modules:
     name: 收集活动
     variants:
       - name: 拼图
-        feats: []
+        feats:
+          - 拼图碎片掉落
+          - 拼图进度展示
+          - 完成图奖励
       - name: 集卡
-        feats: []
+        feats:
+          - 卡牌掉落与稀有度
+          - 重复卡转换
+          - 集齐套组奖励
       - name: 集字
-        feats: []
+        feats:
+          - 字母收集进度
+          - 兑换目标奖励
+          - 重复字母处理
       - name: 碎片兑换
-        feats: []
+        feats:
+          - 碎片库存
+          - 指定奖励兑换
+          - 兑换次数限制
       - name: 主题收藏
-        feats: []
+        feats:
+          - 主题套组配置
+          - 收集进度展示
+          - 套组完成奖励
     tags:
       - 留存
       - 消耗
@@ -238,15 +358,30 @@ modules:
     name: 通行证
     variants:
       - name: 免费轨
-        feats: []
+        feats:
+          - 免费等级奖励
+          - 进度达标领取
+          - 未领取奖励处理
       - name: 付费轨
-        feats: []
+        feats:
+          - 付费轨解锁
+          - 已达等级补领奖励
+          - 购买前奖励预览
       - name: 赛季
-        feats: []
+        feats:
+          - 赛季时间配置
+          - 赛季结束结算
+          - 赛季进度重置
       - name: 固定周期
-        feats: []
+        feats:
+          - 周期开始与结束
+          - 周期奖励配置
+          - 跨周期领取规则
       - name: 进度
-        feats: []
+        feats:
+          - 任务获取通行证经验
+          - 等级进度展示
+          - 等级上限配置
     tags:
       - 付费
       - 留存
@@ -257,13 +392,25 @@ modules:
     name: 排行与竞赛
     variants:
       - name: 积分榜
-        feats: []
+        feats:
+          - 积分获取规则
+          - 排行榜刷新
+          - 排名奖励结算
       - name: 分组竞赛
-        feats: []
+        feats:
+          - 按进度分组
+          - 组内排名展示
+          - 活动结束结算
       - name: 个人目标
-        feats: []
+        feats:
+          - 个人积分目标
+          - 分档奖励
+          - 进度与剩余时间展示
       - name: 团队目标
-        feats: []
+        feats:
+          - 团队贡献累计
+          - 团队目标奖励
+          - 成员变更结算规则
     tags:
       - 竞争留存
     conditions:
@@ -273,15 +420,30 @@ modules:
     name: 人群专属活动
     variants:
       - name: 新手
-        feats: []
+        feats:
+          - 新手触发条件
+          - 新手任务与奖励
+          - 活动有效期
       - name: 回流
-        feats: []
+        feats:
+          - 回流判定条件
+          - 回归奖励
+          - 回流任务周期
       - name: 会员
-        feats: []
+        feats:
+          - 会员身份校验
+          - 专属活动入口
+          - 权益失效处理
       - name: 分层奖励
-        feats: []
+        feats:
+          - 按进度或行为分层
+          - 分层奖励配置
+          - 分层变更规则
       - name: 专属任务
-        feats: []
+        feats:
+          - 人群条件配置
+          - 专属任务池
+          - 完成奖励
     tags:
       - 留存
       - 转化
@@ -292,17 +454,35 @@ modules:
     name: 通用商店
     variants:
       - name: 货币
-        feats: []
+        feats:
+          - 软硬货币商品
+          - 本地价格展示
+          - 购买到账
       - name: 道具
-        feats: []
+        feats:
+          - 道具商品配置
+          - 库存展示
+          - 购买数量限制
       - name: 内容货架
-        feats: []
+        feats:
+          - 内容分类与预览
+          - 解锁状态展示
+          - 商品排序
       - name: 直购
-        feats: []
+        feats:
+          - 商店内购商品
+          - 购买结果反馈
+          - 重复购买限制
       - name: 兑换
-        feats: []
+        feats:
+          - 货币兑换比例
+          - 余额校验
+          - 兑换确认
       - name: 广告领取
-        feats: []
+        feats:
+          - 广告领取商品
+          - 领取次数限制
+          - 广告完成后发放
     tags:
       - 售卖容器
     conditions:
@@ -313,15 +493,32 @@ modules:
     name: 礼包
     variants:
       - name: 首购
-        feats: []
+        feats:
+          - 首次付费资格
+          - 首购奖励
+          - 购买后隐藏
       - name: 新手
-        feats: []
+        feats:
+          - 新手有效期
+          - 礼包内容预览
+          - 限购次数
       - name: 节日礼包
-        feats: []
+        feats:
+          - 节日时间配置
+          - 主题商品展示
+          - 活动结束下架
       - name: 卡关触发
-        feats: []
+        feats:
+          - 连续失败触发
+          - 关卡条件配置
+          - 弹窗频率限制
+          - 按卡关阶段匹配礼包内容
       - name: 资源不足触发
-        feats: []
+        feats:
+          - 资源不足触发
+          - 缺口对应商品
+          - 触发冷却
+          - 按资源缺口推荐价格档位
     tags:
       - 售卖容器
     conditions:
@@ -332,13 +529,25 @@ modules:
     name: 限时特惠
     variants:
       - name: 特价商店
-        feats: []
+        feats:
+          - 折扣商品配置
+          - 原价与现价展示
+          - 限时结束下架
       - name: 黑市模板
-        feats: []
+        feats:
+          - 随机货架生成
+          - 商品库存与限购
+          - 刷新时间展示
       - name: 周期刷新
-        feats: []
+        feats:
+          - 每日或周期刷新
+          - 刷新时间与时区配置
+          - 未购买商品处理
       - name: 商品重抽
-        feats: []
+        feats:
+          - 免费重抽次数
+          - 广告或货币重抽
+          - 重抽后商品去重
     tags:
       - 售卖容器
     conditions:
@@ -348,13 +557,25 @@ modules:
     name: 存钱罐
     variants:
       - name: 游玩积累
-        feats: []
+        feats:
+          - 游玩行为累计
+          - 累计比例配置
+          - 容量进度展示
       - name: 阈值开启
-        feats: []
+        feats:
+          - 开启阈值配置
+          - 满罐提示
+          - 存满后的继续累积规则
       - name: 付费取出
-        feats: []
+        feats:
+          - 商品价格展示
+          - 购买后发放库存
+          - 购买失败保留进度
       - name: 部分领取
-        feats: []
+        feats:
+          - 免费领取部分资源
+          - 领取比例配置
+          - 剩余资源处理
     tags:
       - 售卖机制
     conditions:
@@ -364,15 +585,30 @@ modules:
     name: 会员与订阅
     variants:
       - name: VIP
-        feats: []
+        feats:
+          - 会员等级或身份
+          - 权益生效与到期
+          - 权益列表展示
       - name: 月卡
-        feats: []
+        feats:
+          - 按周期发放资源
+          - 有效期展示
+          - 漏领规则
       - name: 内容订阅
-        feats: []
+        feats:
+          - 订阅内容解锁
+          - 有效期内访问
+          - 到期后访问规则
       - name: 每日补给
-        feats: []
+        feats:
+          - 每日领取次数
+          - 领取重置时间
+          - 未领取处理
       - name: 持续权益
-        feats: []
+        feats:
+          - 持续加成配置
+          - 权益冲突规则
+          - 到期回收
     tags:
       - 权益商品
     conditions:
@@ -382,11 +618,20 @@ modules:
     name: 去广告与便利
     variants:
       - name: 移除指定广告类型
-        feats: []
+        feats:
+          - 移除插屏和横幅
+          - 激励广告权益单独说明
+          - 购买恢复
       - name: 自动领取
-        feats: []
+        feats:
+          - 可自动领取的奖励配置
+          - 每日次数限制
+          - 权益有效期校验
       - name: 便捷功能
-        feats: []
+        feats:
+          - 快捷操作解锁
+          - 功能开关
+          - 权益到期处理
     tags:
       - 权益商品
     conditions:
@@ -396,17 +641,35 @@ modules:
     name: 抽奖与随机商品
     variants:
       - name: 免费
-        feats: []
+        feats:
+          - 免费次数与冷却
+          - 奖池预览
+          - 领取记录
       - name: 广告
-        feats: []
+        feats:
+          - 广告完成后抽取
+          - 每日次数限制
+          - 广告失败不消耗次数
       - name: 货币抽取
-        feats: []
+        feats:
+          - 抽取价格展示
+          - 余额校验
+          - 扣除货币与发放奖励保持一致
       - name: 概率
-        feats: []
+        feats:
+          - 奖池及概率公示
+          - 概率版本配置
+          - 地区规则适配
       - name: 保底
-        feats: []
+        feats:
+          - 保底次数展示
+          - 计数持久化
+          - 保底重置规则
       - name: 重复处理
-        feats: []
+        feats:
+          - 重复奖励转换
+          - 转换比例展示
+          - 库存上限处理
     tags:
       - 需合规审查
     conditions:
@@ -416,15 +679,30 @@ modules:
     name: 体力与次数
     variants:
       - name: 体力
-        feats: []
+        feats:
+          - 体力上限
+          - 关卡消耗
+          - 不足提示
       - name: 门票
-        feats: []
+        feats:
+          - 门票库存
+          - 指定玩法消耗
+          - 门票获取途径
       - name: 挑战次数
-        feats: []
+        feats:
+          - 每日次数上限
+          - 进入时扣减
+          - 失败返还规则
       - name: 自然恢复
-        feats: []
+        feats:
+          - 恢复间隔配置
+          - 离线恢复计算
+          - 恢复倒计时
       - name: 额外补充
-        feats: []
+        feats:
+          - 广告补充
+          - 货币购买
+          - 每日补充次数限制
     tags:
       - 资源循环
     conditions:
@@ -434,13 +712,25 @@ modules:
     name: 局外成长
     variants:
       - name: 属性升级
-        feats: []
+        feats:
+          - 升级消耗配置
+          - 属性等级与效果展示
+          - 等级上限
       - name: 能力解锁
-        feats: []
+        feats:
+          - 进度解锁条件
+          - 能力效果预览
+          - 解锁状态保存
       - name: 付费加速
-        feats: []
+        feats:
+          - 广告缩短等待
+          - 付费购买加速
+          - 剩余时间展示
       - name: 成长基金
-        feats: []
+        feats:
+          - 成长节点奖励
+          - 购买解锁奖励轨
+          - 已达节点补领
     tags:
       - 成长
       - 消耗
@@ -452,17 +742,35 @@ modules:
     name: 内容包解锁
     variants:
       - name: 图包
-        feats: []
+        feats:
+          - 图包预览
+          - 单包解锁条件
+          - 已解锁图包访问
       - name: 关卡包
-        feats: []
+        feats:
+          - 关卡包进度要求
+          - 整包购买
+          - 关卡内容下载
       - name: 主题包
-        feats: []
+        feats:
+          - 主题内容预览
+          - 主题包购买或兑换
+          - 已购状态同步
       - name: 迷你包
-        feats: []
+        feats:
+          - 小型内容组合
+          - 组合价格配置
+          - 拥有内容去重
       - name: 整包
-        feats: []
+        feats:
+          - 整包价格展示
+          - 单项已拥有处理
+          - 购买后批量解锁
       - name: 试用
-        feats: []
+        feats:
+          - 免费试玩范围
+          - 试玩结束提示
+          - 试玩进度继承
     tags:
       - 广告
       - 货币
@@ -475,15 +783,30 @@ modules:
     name: 角色与外观
     variants:
       - name: 角色
-        feats: []
+        feats:
+          - 角色解锁条件
+          - 角色选择与切换
+          - 角色预览
       - name: 皮肤
-        feats: []
+        feats:
+          - 皮肤获取途径
+          - 皮肤试穿
+          - 已拥有状态
       - name: 装扮
-        feats: []
+        feats:
+          - 装扮槽位配置
+          - 搭配保存
+          - 装扮获取途径
       - name: 外观价值
-        feats: []
+        feats:
+          - 外观效果展示
+          - 局内外观应用
+          - 套装效果展示
       - name: 能力价值
-        feats: []
+        feats:
+          - 能力属性说明
+          - 能力解锁与升级
+          - 玩法平衡配置
     tags:
       - 收集
       - 付费
@@ -495,15 +818,30 @@ modules:
     name: 相册与收藏
     variants:
       - name: 筛选
-        feats: []
+        feats:
+          - 按主题筛选
+          - 按解锁状态筛选
+          - 排序配置
       - name: 收藏
-        feats: []
+        feats:
+          - 收藏标记
+          - 收藏列表
+          - 跨设备同步
       - name: 完成展示
-        feats: []
+        feats:
+          - 完成作品展示
+          - 完成时间记录
+          - 分享入口
       - name: 套系进度
-        feats: []
+        feats:
+          - 套系收集进度
+          - 套系完成奖励
+          - 缺失内容提示
       - name: 未解锁预览
-        feats: []
+        feats:
+          - 未解锁内容预览
+          - 获取途径展示
+          - 预览权限配置
     tags:
       - 内容留存
     conditions:
@@ -513,13 +851,25 @@ modules:
     name: 内容导出
     variants:
       - name: 壁纸下载
-        feats: []
+        feats:
+          - 壁纸尺寸选择
+          - 保存至设备
+          - 设备权限处理
       - name: 作品保存
-        feats: []
+        feats:
+          - 作品保存
+          - 保存失败提示
+          - 本地作品管理
       - name: 高清导出
-        feats: []
+        feats:
+          - 高清规格配置
+          - 导出权益校验
+          - 导出进度与失败重试
       - name: 会员权益
-        feats: []
+        feats:
+          - 会员导出权限
+          - 有效期校验
+          - 到期后导出规则
     tags:
       - 内容型适配
     conditions:
@@ -529,15 +879,30 @@ modules:
     name: 建造与装饰
     variants:
       - name: 家园
-        feats: []
+        feats:
+          - 家园区域解锁
+          - 建造资源消耗
+          - 家园状态保存
       - name: 房间
-        feats: []
+        feats:
+          - 房间主题配置
+          - 家具摆放
+          - 房间进度保存
       - name: 地图修复
-        feats: []
+        feats:
+          - 地图修复节点
+          - 节点消耗与奖励
+          - 修复效果展示
       - name: 阶段解锁
-        feats: []
+        feats:
+          - 进度门槛配置
+          - 阶段解锁提示
+          - 阶段奖励
       - name: 装饰收集
-        feats: []
+        feats:
+          - 装饰获取途径
+          - 装饰库存
+          - 放置与替换
     tags:
       - 成长
       - 消耗
@@ -549,17 +914,35 @@ modules:
     name: 奖励与经济
     variants:
       - name: 固定奖励
-        feats: []
+        feats:
+          - 固定奖励配置
+          - 批量发放
+          - 奖励预览
       - name: 随机奖励
-        feats: []
+        feats:
+          - 随机奖池配置
+          - 抽取结果记录
+          - 库存不足处理
       - name: 权重奖励
-        feats: []
+        feats:
+          - 权重与概率配置
+          - 按条件选择奖池
+          - 权重版本记录
       - name: 货币
-        feats: []
+        feats:
+          - 货币余额与流水
+          - 货币获取和消耗
+          - 余额上限
       - name: 库存
-        feats: []
+        feats:
+          - 道具增减与查询
+          - 数量上限
+          - 跨设备库存同步
       - name: 发奖校验
-        feats: []
+        feats:
+          - 防止重复发奖
+          - 异常补发
+          - 客户端与服务端结果对账
     tags:
       - 共用能力
     conditions:
@@ -569,17 +952,38 @@ modules:
     name: 广告接入与控制
     variants:
       - name: 激励广告
-        feats: []
+        feats:
+          - 广告加载与缓存
+          - 完整观看回调发奖
+          - 关闭或失败不发奖
+          - 广告位奖励与观看次数配置
+          - 按用户分层调整激励价值
       - name: 插屏
-        feats: []
+        feats:
+          - 展示时机控制
+          - 加载失败跳过
+          - 展示结果回调
+          - 按关卡和用户分层配置频率
       - name: 横幅
-        feats: []
+        feats:
+          - 广告位尺寸适配
+          - 显示与隐藏控制
+          - 页面遮挡检查
       - name: 频控
-        feats: []
+        feats:
+          - 按广告类型和用户频控
+          - 展示间隔与次数上限
+          - 跨场景统一计数
       - name: 保护期
-        feats: []
+        feats:
+          - 新用户保护期
+          - 关卡进度保护
+          - 付费用户保护策略
       - name: 兜底
-        feats: []
+        feats:
+          - 无填充提示
+          - 重试与超时处理
+          - 不可用时替代领取规则
     tags:
       - 共用能力
     conditions:
@@ -589,13 +993,26 @@ modules:
     name: 支付与权益
     variants:
       - name: 商品目录
-        feats: []
+        feats:
+          - 平台商品 ID 映射
+          - 本地化价格读取
+          - 商品上下架
+          - 价格档位与礼包内容配置
       - name: 订单校验
-        feats: []
+        feats:
+          - 服务端票据校验
+          - 订单幂等发货
+          - 未完成订单补单
       - name: 恢复购买
-        feats: []
+        feats:
+          - 恢复非消耗型购买
+          - 跨设备权益同步
+          - 恢复结果提示
       - name: 订阅状态
-        feats: []
+        feats:
+          - 订阅有效期校验
+          - 续订与取消状态同步
+          - 退款和过期权益处理
     tags:
       - 共用能力
     conditions:
@@ -605,15 +1022,30 @@ modules:
     name: 活动与条件引擎
     variants:
       - name: 时间
-        feats: []
+        feats:
+          - 活动起止时间
+          - 时区与服务器时间
+          - 倒计时配置
       - name: 进度
-        feats: []
+        feats:
+          - 关卡或成长门槛
+          - 解锁条件组合
+          - 进度变化触发
       - name: 人群条件
-        feats: []
+        feats:
+          - 用户分群条件
+          - 资格动态校验
+          - 人群互斥规则
       - name: 任务计数
-        feats: []
+        feats:
+          - 事件驱动计数
+          - 去重与上限
+          - 跨局进度持久化
       - name: 周期重置
-        feats: []
+        feats:
+          - 按日周或周期重置
+          - 重置时区配置
+          - 跨周期未领奖处理
     tags:
       - 共用能力
     conditions:
@@ -623,15 +1055,32 @@ modules:
     name: 远程配置与实验
     variants:
       - name: 模组开关
-        feats: []
+        feats:
+          - 按版本或人群开关
+          - 默认值与降级
+          - 紧急关闭
       - name: 参数
-        feats: []
+        feats:
+          - 参数类型与默认值
+          - 配置版本管理
+          - 客户端缓存
       - name: 分群
-        feats: []
+        feats:
+          - 按地区进度和行为分群
+          - 分群条件配置
+          - 用户分组稳定性
       - name: A/B测试
-        feats: []
+        feats:
+          - 随机分组并保持用户分组不变
+          - 实验指标配置
+          - 互斥与结束策略
+          - 广告频率与奖励价值实验
+          - 商品价格与礼包内容实验
       - name: 灰度发布
-        feats: []
+        feats:
+          - 按比例发布
+          - 指定人群或地区发布
+          - 回滚配置
     tags:
       - 共用能力
     conditions:
@@ -641,17 +1090,38 @@ modules:
     name: 数据与经验沉淀
     variants:
       - name: 曝光
-        feats: []
+        feats:
+          - 页面与广告位曝光
+          - 曝光去重规则
+          - 场景与配置版本记录
       - name: 转化
-        feats: []
+        feats:
+          - 点击到领取漏斗
+          - 购买转化漏斗
+          - 失败原因记录
       - name: 收益
-        feats: []
+        feats:
+          - 广告收入归因
+          - 内购收入与退款
+          - 按地区和版本分析
+          - 广告位展示率和每千次展示收益
+          - 付费率与付费用户平均收入
+          - 用户从进入游戏至今的广告和内购收入
       - name: 留存
-        feats: []
+        feats:
+          - 次日及周期留存
+          - 分群留存分析
+          - 活动参与留存
       - name: 实验结论
-        feats: []
+        feats:
+          - 实验分组与指标记录
+          - 样本和观察周期
+          - 结论与适用范围
       - name: 项目适配记录
-        feats: []
+        feats:
+          - 玩法与受众背景
+          - 模组参数及依赖
+          - 效果和问题复盘
     tags:
       - 共用能力
     conditions:
@@ -661,17 +1131,35 @@ modules:
     name: 本地化与合规
     variants:
       - name: 语言
-        feats: []
+        feats:
+          - 多语言文案配置
+          - 系统语言匹配
+          - 长文本与从右至左适配
       - name: 币种
-        feats: []
+        feats:
+          - 商店本地价格展示
+          - 货币符号与格式
+          - 价格由平台返回
       - name: 时区
-        feats: []
+        feats:
+          - 服务器时间基准
+          - 活动时区配置
+          - 夏令时与跨日处理
       - name: 隐私
-        feats: []
+        feats:
+          - 隐私政策入口
+          - 同意状态管理
+          - 广告隐私信号传递
       - name: 年龄
-        feats: []
+        feats:
+          - 年龄分级配置
+          - 儿童用户限制
+          - 按地区启用适龄体验
       - name: 市场规则
-        feats: []
+        feats:
+          - 随机商品概率披露
+          - 平台支付和订阅规则
+          - 地区广告及隐私规则配置
     tags:
       - 共用能力
     conditions:
